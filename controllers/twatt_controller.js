@@ -16,8 +16,15 @@ function search(req, res) {
       process.env.USER_TOKEN, //user token
       process.env.USER_SECRET, //user secret
     function (e, data) {
+      let result = [];
+      data = JSON.parse(data);
       if (e) console.error(e);
-      res.send(data);
+      data.statuses.forEach(element => {
+        result.push(element.user.name);
+        result.push(element.text);
+      });
+      console.log(result);
+      res.send(result);
     });
 }
 
